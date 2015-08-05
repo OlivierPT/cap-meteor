@@ -1,0 +1,20 @@
+<div ng-controller="ChannelsCtrl">
+<div class="listings_channels" >
+    <h2 class="listings_header">Channels</h2>
+    <ul class="channel_list" ng-repeat="channel in channels">
+        <li class="channel active ">
+            <a class="channel_name">
+                <span class="unread">0</span>
+                <span>
+                    <span class="prefix">#</span>
+                    {{channel.label}}
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- add a form below the h1 -->
+<form class="new-channel" ng-submit="addChannel(newChannel); newChannel='';">
+  <input ng-model="newChannel" type="text" name="label" placeholder="Type to create a new channel" />
+</form>
+</div>
