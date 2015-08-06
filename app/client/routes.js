@@ -6,7 +6,8 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
     $stateProvider
       .state('channels', {
         url: '/channels',
-        templateUrl: 'client/index.ng.html'
+        templateUrl: 'client/index.ng.html',
+        controller: 'ChannelsCtrl'
       });
 
       $urlRouterProvider.otherwise('/channels');

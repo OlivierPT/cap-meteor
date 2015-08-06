@@ -9,3 +9,6 @@ urigo:angular
 constellation:console
 lai:ddp-inspector
 angularui:angular-ui-router
+twbs:bootstrap
+accounts-password
+accounts-ui
