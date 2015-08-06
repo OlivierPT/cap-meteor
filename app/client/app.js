@@ -1,5 +1,16 @@
 angular.module('cap-meteor',['angular-meteor', 'ui.router']);
 
+angular.module("cap-meteor").run(["$rootScope", "$state", function($rootScope, $state) {
+  $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
+    // We can catch the error thrown when the $requireUser promise is rejected
+    // and redirect the user back to the main page
+    if (error === "AUTH_REQUIRED") {
+      $state.go('signInOrUp');
+    }
+  });
+
+}]);
+
 angular.module('cap-meteor').controller("ChannelsCtrl", ['$scope', '$meteor',
     function($scope, $meteor){
 
@@ -23,15 +34,43 @@ angular.module('cap-meteor').controller("ChannelsCtrl", ['$scope', '$meteor',
     }]);
 
 
-angular.module('cap-meteor').controller("MessagesListCtrl", ['$scope', '$stateParams', '$meteor',
-    function($scope, $stateParams, $meteor){
+angular.module('cap-meteor').controller("SignInOrUpCtrl", ['$scope', '$state', '$meteor',
+    function($scope, $state, $meteor){
 
-	    $scope.partyId = $stateParams.partyId;
+      $scope.signIn = function(login, passwd){
+  			$meteor.loginWithPassword(login, passwd).then(function(){
+          console.log('Login success');
+          $scope.username = '';
+          $scope.passwd = '';
 
-	    $scope.$meteorSubscribe("messages");
+          $state.go('channels');
+        }, function(err){
+          console.log('Login error - ', err);
+        });
+  		};
 
-		$scope.messages = $meteor.collection(function() {
-			return Messages.find()
-		});
+      $scope.signUp = function(username, email, passwd){
+        $meteor.createUser({
+              username: $scope.username,
+              email: $scope.email,
+              password: $scope.passwd
+            }).then(function(){
+              $scope.username = '';
+              $scope.email = '';
+              $scope.passwd = '';
 
+              $state.go('channels');
+              console.log('Signup success');
+          }, function(err){
+            console.log('Login error - ', err);
+          });
+  		};
+
+      $scope.signOut = function(){
+        $meteor.logout().then(function(){
+            console.log('Logout success');
+          }, function(err){
+            console.log('logout error - ', err);
+          });
+        };
 	}]);
