@@ -6,8 +6,18 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
     $stateProvider
       .state('channels', {
         url: '/channels',
-        templateUrl: 'client/index.ng.html',
-        controller: 'ChannelsCtrl',
+        templateUrl: 'client/views/room.ng.html',
+        controller: 'RoomCtrl',
+        resolve: {
+          "currentUser": ["$meteor", function($meteor){
+            return $meteor.requireUser();
+          }]
+        }
+      })
+      .state('channel', {
+        url: '/channels/:channelId',
+        templateUrl: 'client/views/room.ng.html',
+        controller: 'ChannelCtrl',
         resolve: {
           "currentUser": ["$meteor", function($meteor){
             return $meteor.requireUser();

@@ -11,20 +11,14 @@ angular.module("cap-meteor").run(["$rootScope", "$state", function($rootScope, $
 
 }]);
 
-angular.module('cap-meteor').controller("ChannelsCtrl", ['$scope', '$meteor',
-    function($scope, $meteor){
+angular.module('cap-meteor').controller("RoomCtrl", ['$scope', '$meteor', '$stateParams',
+    function($scope, $meteor, $stateParams){
 
 		$scope.$meteorSubscribe("channels");
-		$scope.$meteorSubscribe("messages");
+
 
 		$scope.channels = $meteor.collection(function() {
-			return Channels.find()
-		});
-
-
-
-		$scope.messages = $meteor.collection(function() {
-			return Messages.find()
+			return Channels.find();
 		});
 
 		$scope.addChannel = function(newChannel){
@@ -33,6 +27,32 @@ angular.module('cap-meteor').controller("ChannelsCtrl", ['$scope', '$meteor',
 
     }]);
 
+    angular.module('cap-meteor').controller("ChannelCtrl", ['$scope', '$meteor', '$stateParams',
+        function($scope, $meteor, $stateParams){
+
+        $scope.channelId = $stateParams.channelId;
+
+    		$scope.$meteorSubscribe("channels");
+    		$scope.$meteorSubscribe("messages", $scope.channelId);
+
+    		$scope.channels = $meteor.collection(function() {
+    			return Channels.find()
+    		});
+
+    		$scope.messages = $meteor.collection(function() {
+    			return Messages.find()
+    		});
+
+    		$scope.addChannel = function(newChannel){
+    			$meteor.call("addChannel", newChannel);
+    		};
+
+        $scope.sendMessage = function(newMessage){
+          newMessage.channelId = $scope.channelId;
+    			$meteor.call("sendMessage", newMessage);
+    		};
+
+        }]);
 
 angular.module('cap-meteor').controller("SignInOrUpCtrl", ['$scope', '$state', '$meteor',
     function($scope, $state, $meteor){

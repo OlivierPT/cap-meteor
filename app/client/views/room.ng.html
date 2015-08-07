@@ -1,23 +1,12 @@
-<div class="header">
-  <div class="team-menu">
-    <div class="channel-menu">
-      cap-meteor
-    </div>
-  </div>
-  <div class="login-menu">
-      <span class="user-menu_username">scotch</span>
-      <span class="connection_status">online</span>
-  </div>
-</div>
+<!-- Page Layout here -->
+<div class="row">
+  <div class="col s3 hide-on-med-and-down grey lighten-3">
+   <!-- Grey navigation panel -->
+   <ng-include src="'client/views/channels/channels.ng.html'"></ng-include>
+ </div>
 
-<div ui-view class="main"></div>
-
-<div class="footer">
-  <div class="user-menu">
-    <span class="user-menu_username">scotch</span>
-    <span class="connection_status">online</span>
-  </div>
-  <div class="input-box">
-    <input type="text" class="input-box_text">
-  </div>
+ <div class="col s9">
+   <!-- Teal page content  -->
+   <ng-include src="'client/views/messages/messages.ng.html'"></ng-include>
+ </div>
 </div>

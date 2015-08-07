@@ -1,12 +1,25 @@
-<div>
-    <div class="message-history" ng-repeat="message in messages">
+<ul class="collection" ng-repeat="message in messages">
+    <li class="collection-item avatar">
+      <span class="title">{{message.user}}</span>
+      <p>{{message.text}}</p>
+      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+  </ul>
 
-        <div class="message">
-            <a href="" class="message_profile-pic"></a>
-            <a href="" class="message_username">scotch</a>
-            <span class="message_timestamp">{{message.timestamp}}</span>
-            <span class="message_star"></span>
-            <span class="message_content">{{message.text}}</span>
-        </div>
-    </div>
-</div>
+
+
+<form class="col s12"  ng-submit="sendMessage(newMessage); newMessage='';">
+
+  <div class="input-field">
+    <span class="col s10">
+      <input id="new_message" type="text" class="validate" ng-model="newMessage.text">
+      <label for="new_message">Send a message</label>
+    </span>
+    <span class="col s2">
+      <button class="btn waves-effect waves-light" type="submit" name="action">
+        <i class="material-icons">send</i>
+      </button>
+    </span>
+  </div>
+
+</form>
