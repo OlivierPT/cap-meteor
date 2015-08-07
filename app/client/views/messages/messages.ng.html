@@ -1,12 +1,9 @@
 <ul class="collection" ng-repeat="message in messages">
-    <li class="collection-item avatar">
-      <span class="title">{{message.user}}</span>
-      <p>{{message.text}}</p>
-      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    <li class="collection-item">
+      <span class="title">{{username(message.user)}}</span>
+      <span>{{message.text}}</span>
     </li>
   </ul>
-
-
 
 <form class="col s12"  ng-submit="sendMessage(newMessage); newMessage='';">
 

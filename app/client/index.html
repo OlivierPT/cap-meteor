@@ -1,12 +1,17 @@
 <body ng-app="cap-meteor">
 	<!-- Navbar goes here -->
-	<nav>
+	<nav ng-controller="NavBarCtrl">
 	    <div class="nav-wrapper">
 	      <a href="#" class="brand-logo">Cap Metor</a>
-	      <ul id="nav-mobile" class="right hide-on-med-and-down">
-	        <li><a href="sass.html">Sass</a></li>
-	        <li><a href="badges.html">Components</a></li>
-	        <li><a href="collapsible.html">JavaScript</a></li>
+	      <ul id="nav-mobile" class="right">
+					<li style="margin-right:20px">
+						<!-- Dropdown Trigger -->
+					  <a class='dropdown-button btn' href='#' data-activates='dropdown1'>{{currentUser.username}}</a>
+					  <!-- Dropdown Structure -->
+					  <ul id='dropdown1' class='dropdown-content'>
+					    <li><a href="#!" ng-click="signOut();">Sign out</a></li>
+					  </ul>
+					</li>
 	      </ul>
 	    </div>
 	  </nav>

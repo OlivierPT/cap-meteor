@@ -14,6 +14,15 @@ Meteor.methods({
     Channels.insert(channel);
   },
 
+  'deleteChannel': function (channelId) {
+    if (this.isSimulation) {
+      Channels.delete({_id:channelId});
+    }
+
+  	Channels.delete({_id:channelId});
+    Messages.delete({channelId:channelId});
+  },
+
   'sendMessage': function (message) {
   	message.timestamp = Date.now();
     message.user = Meteor.userId();

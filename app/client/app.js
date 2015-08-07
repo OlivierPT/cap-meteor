@@ -14,45 +14,72 @@ angular.module("cap-meteor").run(["$rootScope", "$state", function($rootScope, $
 angular.module('cap-meteor').controller("RoomCtrl", ['$scope', '$meteor', '$stateParams',
     function($scope, $meteor, $stateParams){
 
-		$scope.$meteorSubscribe("channels");
+      $scope.channelActive = '';
+  		$scope.$meteorSubscribe("channels");
 
+  		$scope.channels = $meteor.collection(function() {
+  			return Channels.find();
+  		});
 
-		$scope.channels = $meteor.collection(function() {
-			return Channels.find();
-		});
+  		$scope.addChannel = function(newChannel){
+  			$meteor.call("addChannel", newChannel);
+  		};
 
-		$scope.addChannel = function(newChannel){
-			$meteor.call("addChannel", newChannel);
-		};
+      $scope.deleteChannel = function(channelId){
+        $meteor.call("deleteChannel", channelId);
+      };
+
+      $scope.channelActive = function(channelId){
+  			$scope.channelActive = '';
+  		};
 
     }]);
 
-    angular.module('cap-meteor').controller("ChannelCtrl", ['$scope', '$meteor', '$stateParams',
-        function($scope, $meteor, $stateParams){
+angular.module('cap-meteor').controller("ChannelCtrl", ['$scope', '$meteor', '$stateParams',
+    function($scope, $meteor, $stateParams){
 
-        $scope.channelId = $stateParams.channelId;
 
-    		$scope.$meteorSubscribe("channels");
-    		$scope.$meteorSubscribe("messages", $scope.channelId);
+      $scope.channelId = $stateParams.channelId;
 
-    		$scope.channels = $meteor.collection(function() {
-    			return Channels.find()
-    		});
+  		$scope.$meteorSubscribe("channels");
+      $scope.$meteorSubscribe("usernames");
+  		$scope.$meteorSubscribe("messages", $scope.channelId);
 
-    		$scope.messages = $meteor.collection(function() {
-    			return Messages.find()
-    		});
+  		$scope.channels = $meteor.collection(function() {
+  			return Channels.find()
+  		});
 
-    		$scope.addChannel = function(newChannel){
-    			$meteor.call("addChannel", newChannel);
-    		};
+  		$scope.messages = $meteor.collection(function() {
+  			return Messages.find()
+  		});
 
-        $scope.sendMessage = function(newMessage){
-          newMessage.channelId = $scope.channelId;
-    			$meteor.call("sendMessage", newMessage);
-    		};
+  		$scope.addChannel = function(newChannel){
+  			$meteor.call("addChannel", newChannel);
+  		};
 
-        }]);
+      $scope.deleteChannel = function(channelId){
+  			$meteor.call("deleteChannel", channelId);
+  		};
+
+      $scope.sendMessage = function(newMessage){
+        newMessage.channelId = $scope.channelId;
+  			$meteor.call("sendMessage", newMessage);
+  		};
+
+      $scope.channelActive = function(channelId){
+  			if ($scope.channelId === channelId) {
+          return 'active';
+        } else {
+          return '';
+        }
+  		};
+
+      $scope.username = function(userId){
+  			//return $meteor.users.find({_id:userId});
+        return userId;
+  		};
+
+    }]);
 
 angular.module('cap-meteor').controller("SignInOrUpCtrl", ['$scope', '$state', '$meteor',
     function($scope, $state, $meteor){
@@ -94,3 +121,16 @@ angular.module('cap-meteor').controller("SignInOrUpCtrl", ['$scope', '$state', '
           });
         };
 	}]);
+
+  angular.module('cap-meteor').controller("NavBarCtrl", ['$scope', '$state', '$meteor',
+      function($scope, $state, $meteor){
+
+        $scope.signOut = function(){
+          $meteor.logout().then(function(){
+              console.log('Logout success');
+              $state.go('signInOrUp');
+            }, function(err){
+              console.log('logout error - ', err);
+            });
+          };
+  	}]);

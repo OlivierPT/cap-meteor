@@ -1,9 +1,8 @@
 
     <ul class="collection" ng-repeat="channel in channels">
-      <a href="/channels/{{channel._id}}" class="collection-item">
+      <a href="/channels/{{channel._id}}" class="collection-item  {{channelActive(channel._id)}}">
         <span class="prefix">#</span>
         {{channel.label}}
-        <span class="badge">1</span>
       </a>
     </ul>
     <div class="listings_direct-messages"></div>
