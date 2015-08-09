@@ -9,12 +9,10 @@
 	      <a href="/channels">Cap Meteor</a>
 	    </h2>
 	    <span flex></span>
-	    <md-button class="md-icon-button" aria-label="Favorite">
-	      <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
-	    </md-button>
-	    <md-button class="md-icon-button" aria-label="More">
-	      <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
-	    </md-button>
+			<md-button ng-href="/login" ng-hide="$root.currentUser">Login</md-button>
+			<md-button ng-href="/register" ng-hide="$root.currentUser">Sign up</md-button>
+			<div ng-show="$root.currentUser">{{ $root.currentUser }}</div>
+			<md-button ng-href="/logout" ng-show="$root.currentUser">Logout</md-button>
 	  </div>
 	</md-toolbar>
 

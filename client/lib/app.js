@@ -167,3 +167,4 @@ angular.module('cap-meteor').controller("SignInOrUpCtrl", ['$scope', '$state', '
             });
           };
   	}]);
+    
