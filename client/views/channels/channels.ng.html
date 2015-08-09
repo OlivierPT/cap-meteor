@@ -1,15 +1,22 @@
-
-    <ul class="collection" ng-repeat="channel in channels">
+ <md-list>
+    <md-subheader class="md-no-sticky">Channels list</md-subheader>
+    <md-list-item class="md-1-line" ng-repeat="channel in channels">
       <a href="/channels/{{channel._id}}" class="collection-item  {{channelActive(channel._id)}}">
         <span class="prefix">#</span>
         {{channel.label}}
       </a>
-    </ul>
-    <div class="listings_direct-messages"></div>
-    <p class="disclaimer">This demo is not created by, affiliated with, or supported by Slack Technologies, Inc.</p>
-    <form class="col s12"  ng-submit="addChannel(newChannel); newChannel='';">
-       <div class="input-field">
-         <input id="new_channel" type="text" class="validate" ng-model="newChannel.label">
-         <label for="new_channel">Create a channel</label>
-        </div>
-   </form>
+      <md-button class="md-icon-button" aria-label="More">
+        <md-icon md-svg-icon="action:ic_view_headline_24px"></md-icon>
+      </md-button>
+    </md-list-item>
+  </md-list>
+  <md-divider ></md-divider>
+
+  <p class="disclaimer">This demo is not created by, affiliated with, or supported by Slack Technologies, Inc.</p>
+  <md-divider ></md-divider>
+  <form ng-submit="addChannel(newChannel); newChannel='';">
+    <md-input-container flex>
+      <label>Create a channel</label>
+      <input ng-model="newChannel.label">
+    </md-input-container>
+ </form>

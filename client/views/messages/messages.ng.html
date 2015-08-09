@@ -1,22 +1,23 @@
-<ul class="collection" ng-repeat="message in messages">
-    <li class="collection-item">
-      <span class="title">{{username(message.user)}}</span>
-      <span>{{message.text}}</span>
-    </li>
-  </ul>
+<md-list>
+   <md-subheader class="md-no-sticky">Messages :</md-subheader>
+   <md-list-item class="md-2-line" ng-repeat="message in messages">
+     <div class="md-list-item-text">
+        <h3>{{username(message.user)}} : </h3>
+        <p>> {{message.text}}</p>
+      </div>
+   </md-list-item>
+ </md-list>
+ <md-divider ></md-divider>
 
-<form class="col s12"  ng-submit="sendMessage(newMessage); newMessage='';">
-
-  <div class="input-field">
-    <span class="col s10">
-      <input id="new_message" type="text" class="validate" ng-model="newMessage.text">
-      <label for="new_message">Send a message</label>
-    </span>
-    <span class="col s2">
-      <button class="btn waves-effect waves-light" type="submit" name="action">
-        <i class="material-icons">send</i>
-      </button>
-    </span>
+<form ng-submit="sendMessage(newMessage); newMessage='';">
+  <div layout layout-sm="column">
+    <md-input-container flex>
+      <label>Send a message</label>
+      <input ng-model="newMessage.text">
+    </md-input-container>
+    <md-button class="md-icon-button" aria-label="Send message" type="submit" name="action">
+        <md-icon md-svg-icon="content:ic_send_24px"></md-icon>
+      </md-button>
   </div>
 
 </form>

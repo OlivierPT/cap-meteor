@@ -1,12 +1,19 @@
 <!-- Page Layout here -->
-<div class="row">
-  <div class="col s3 hide-on-med-and-down grey lighten-3">
-   <!-- Grey navigation panel -->
-   <ng-include src="'client/views/channels/channels.ng.html'"></ng-include>
- </div>
+<div layout="column" style="height:500px;">
+  <section layout="row" flex>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+      <md-content layout-padding>
+        <!-- Grey navigation panel -->
+        <ng-include src="'client/views/channels/channels.ng.html'"></ng-include>
+      </md-content>
+    </md-sidenav>
 
- <div class="col s9">
-   <!-- Teal page content  -->
-   <ng-include src="'client/views/messages/messages.ng.html'"></ng-include>
- </div>
+    <md-content flex layout-padding>
+      <div layout="column" layout-fill layout-align="top center">
+        <!-- Teal page content  -->
+        <ng-include src="'client/views/messages/messages.ng.html'"></ng-include>
+      </div>
+    </md-content>
+
+  </section>
 </div>

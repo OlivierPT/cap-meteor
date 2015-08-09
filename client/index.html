@@ -1,21 +1,22 @@
-<body>
+<body layout="column">
 
-	<!-- Navbar goes here -->
-	<nav ng-controller="NavBarCtrl">
-	    <div class="nav-wrapper">
-	      <a href="/channels" class="brand-logo">Cap Metor</a>
-	      <ul id="nav-mobile" class="right">
-					<li style="margin-right:20px">
-						<!-- Dropdown Trigger -->
-					  <a class='dropdown-button btn' href='#' data-activates='dropdown1'>{{currentUser.username}}</a>
-					  <!-- Dropdown Structure -->
-					  <ul id='dropdown1' class='dropdown-content'>
-					    <li><a href="#" ng-click="signOut();">Sign out</a></li>
-					  </ul>
-					</li>
-	      </ul>
-	    </div>
-	  </nav>
+	<md-toolbar md-scroll-shrink layout="row" layout-align="start center" layout-padding>
+		<div class="md-toolbar-tools">
+	    <md-button class="md-icon-button" aria-label="Settings">
+	      <md-icon md-svg-icon="action:ic_view_headline_24px"></md-icon>
+	    </md-button>
+	    <h2>
+	      <a href="/channels">Cap Meteor</a>
+	    </h2>
+	    <span flex></span>
+	    <md-button class="md-icon-button" aria-label="Favorite">
+	      <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
+	    </md-button>
+	    <md-button class="md-icon-button" aria-label="More">
+	      <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+	    </md-button>
+	  </div>
+	</md-toolbar>
 
-	<div ui-view></div>
+	<div ui-view class="container-fluid"></div>
 </body>

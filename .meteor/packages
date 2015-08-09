@@ -13,4 +13,5 @@ constellation:session
 aldeed:collection2
 angularui:angular-ui-router
 accounts-password
-materialize:materialize
+angular:angular-material
+planettraining:material-design-icons
