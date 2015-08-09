@@ -1,5 +1,15 @@
 angular.module('cap-meteor',['angular-meteor', 'ui.router']);
 
+function onReady() {
+  angular.bootstrap(document, ['cap-meteor']);
+}
+
+if (Meteor.isCordova) {
+  angular.element(document).on("deviceready", onReady);
+} else {
+  angular.element(document).ready(onReady);
+}
+
 angular.module("cap-meteor").run(["$rootScope", "$state", function($rootScope, $state) {
   $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
     // We can catch the error thrown when the $requireUser promise is rejected
@@ -42,8 +52,8 @@ angular.module('cap-meteor').controller("ChannelCtrl", ['$scope', '$meteor', '$s
       $scope.channelId = $stateParams.channelId;
 
   		$scope.$meteorSubscribe("channels");
-      $scope.$meteorSubscribe("usernames");
-  		$scope.$meteorSubscribe("messages", $scope.channelId);
+      $scope.$meteorSubscribe("messages", $scope.channelId);
+      $scope.users = $meteor.collection(Meteor.users, false).subscribe('users');
 
   		$scope.channels = $meteor.collection(function() {
   			return Channels.find()
@@ -75,8 +85,8 @@ angular.module('cap-meteor').controller("ChannelCtrl", ['$scope', '$meteor', '$s
   		};
 
       $scope.username = function(userId){
-  			//return $meteor.users.find({_id:userId});
-        return userId;
+  			return Meteor.users.findOne({_id:userId}).username;
+        //return userId;
   		};
 
     }]);
