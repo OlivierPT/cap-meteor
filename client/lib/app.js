@@ -38,14 +38,27 @@ angular.module("cap-meteor").run(["$rootScope", "$state", function($rootScope, $
     // We can catch the error thrown when the $requireUser promise is rejected
     // and redirect the user back to the main page
     if (error === "AUTH_REQUIRED") {
-      $state.go('signInOrUp');
+      $state.go('sign');
     }
   });
 
 }]);
 
-angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdSidenav', '$meteor',
-  function($scope, $mdSidenav, $meteor) {
+angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$animate', '$mdSidenav', '$meteor',
+  function($scope, $mdToast, $animate, $mdSidenav, $meteor) {
+
+    $scope.toastPosition = {
+      bottom: true,
+      top: false,
+      left: false,
+      right: true
+    };
+
+    $scope.getToastPosition = function() {
+      return Object.keys($scope.toastPosition)
+        .filter(function(pos) { return $scope.toastPosition[pos]; })
+        .join(' ');
+    };
 
     $scope.channelActive = '';
     $scope.$meteorSubscribe("channels");
@@ -55,7 +68,16 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdSidenav', '$me
     });
 
     $scope.addChannel = function(newChannel){
-      $meteor.call("addChannel", newChannel);
+      $meteor.call("addChannel", newChannel).then(function(){
+        
+        $mdToast.show($mdToast.simple()
+          .content('Channel '+newChannel.label+' created!')
+          .position($scope.getToastPosition())
+          .hideDelay(3000));
+
+          }, function(err){
+              console.log('logout error - ', err);
+          });
     };
 
     $scope.deleteChannel = function(channelId){

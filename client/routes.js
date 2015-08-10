@@ -15,7 +15,7 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
         resolve: {
         "logout": ['$meteor', '$state', function($meteor, $state) {
             return $meteor.logout().then(function(){
-                    $state.go('parties');
+                    $state.go('sign');
                 }, function(err){
                     console.log('logout error - ', err);
                 });
