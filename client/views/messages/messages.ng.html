@@ -1,23 +1,32 @@
-<md-list>
-   <md-subheader class="md-no-sticky">Messages :</md-subheader>
-   <md-list-item class="md-2-line" ng-repeat="message in messages">
-     <div class="md-list-item-text">
-        <h3>{{username(message.user)}} : </h3>
-        <p>> {{message.text}}</p>
-      </div>
-   </md-list-item>
- </md-list>
- <md-divider ></md-divider>
 
-<form ng-submit="sendMessage(newMessage); newMessage='';">
-  <div layout layout-sm="column">
-    <md-input-container flex>
-      <label>Send a message</label>
-      <input ng-model="newMessage.text">
-    </md-input-container>
-    <md-button class="md-icon-button" aria-label="Send message" type="submit" name="action">
-        <md-icon md-svg-icon="content:ic_send_24px"></md-icon>
-      </md-button>
-  </div>
+ <md-content class="md-padding">
+   <md-card ng-controller="ChannelCtrl">
 
-</form>
+     <md-card-content>
+       <md-list flex>
+          <md-subheader class="md-no-sticky">Messages :</md-subheader>
+          <md-list-item class="md-2-line" ng-repeat="message in messages">
+            <md-divider ></md-divider>
+            <div class="md-list-item-text">
+               <h3>{{message.timestamp | date:'yyyy-MM-dd HH:mm:ss'}} - <b>{{username(message.user)}}</b> : </h3>
+               <b>> {{message.text}}</b>
+             </div>
+
+          </md-list-item>
+        </md-list>
+     </md-card-content>
+     <div class="md-actions" layout="row" flex>
+       <form ng-submit="sendMessage(newMessage); newMessage='';" flex>
+         <div layout layout-sm="column">
+           <md-input-container flex>
+             <label>Send a message</label>
+             <input ng-model="newMessage.text">
+           </md-input-container>
+           <md-button class="md-icon-button" aria-label="Send message" type="submit" name="action">
+               <md-icon md-svg-icon="content:ic_send_24px"></md-icon>
+             </md-button>
+         </div>
+       </form>
+     </div>
+   </md-card>
+</md-content>

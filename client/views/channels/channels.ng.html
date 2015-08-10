@@ -1,13 +1,15 @@
- <md-list>
+ <md-list flex>
     <md-subheader class="md-no-sticky">Channels list</md-subheader>
     <md-list-item class="md-1-line" ng-repeat="channel in channels">
-      <a href="/channels/{{channel._id}}" class="collection-item  {{channelActive(channel._id)}}">
-        <span class="prefix">#</span>
-        {{channel.label}}
-      </a>
-      <md-button class="md-icon-button" aria-label="More">
-        <md-icon md-svg-icon="action:ic_view_headline_24px"></md-icon>
-      </md-button>
+      <md-content layout="row">
+        <a href="/channels/{{channel._id}}" class="collection-item  {{channelActive(channel._id)}}">
+          <span class="prefix">#</span>
+          {{channel.label}}
+        </a>
+        <md-button class="md-icon-button" aria-label="More">
+          <md-icon md-svg-icon="action:ic_view_headline_24px"></md-icon>
+        </md-button>
+    </md-content>
     </md-list-item>
   </md-list>
   <md-divider ></md-divider>

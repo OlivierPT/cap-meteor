@@ -4,23 +4,11 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
     $locationProvider.html5Mode(true);
 
     $stateProvider
-      .state('login', {
-        url: '/login',
-        templateUrl: 'client/views/users/login.ng.html',
-        controller: 'LoginCtrl',
-        controllerAs: 'lc'
-      })
-      .state('register',{
-        url: '/register',
-        templateUrl: 'client/views/users/register.ng.html',
-        controller: 'RegisterCtrl',
-        controllerAs: 'rc'
-      })
-      .state('resetpw', {
-        url: '/resetpw',
-        templateUrl: 'client/views/users/reset-password.ng.html',
-        controller: 'ResetCtrl',
-        controllerAs: 'rpc'
+      .state('sign', {
+        url: '/sign',
+        templateUrl: 'client/views/users/sign.ng.html',
+        controller: 'SignCtrl',
+        controllerAs: 'sc'
       })
       .state('logout', {
         url: '/logout',
@@ -36,7 +24,6 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
       }).state('channels', {
         url: '/channels',
         templateUrl: 'client/views/index.ng.html',
-        controller: 'RoomCtrl',
         resolve: {
           "currentUser": ["$meteor", function($meteor){
             return $meteor.requireUser();
@@ -46,7 +33,6 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
       .state('channel', {
         url: '/channels/:channelId',
         templateUrl: 'client/views/room.ng.html',
-        controller: 'ChannelCtrl',
         resolve: {
           "currentUser": ["$meteor", function($meteor){
             return $meteor.requireUser();

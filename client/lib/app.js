@@ -44,127 +44,30 @@ angular.module("cap-meteor").run(["$rootScope", "$state", function($rootScope, $
 
 }]);
 
-angular.module('cap-meteor').controller("RoomCtrl", ['$scope', '$meteor', '$stateParams',
-    function($scope, $meteor, $stateParams){
+angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdSidenav', '$meteor',
+  function($scope, $mdSidenav, $meteor) {
 
+    $scope.channelActive = '';
+    $scope.$meteorSubscribe("channels");
+
+    $scope.channels = $meteor.collection(function() {
+      return Channels.find();
+    });
+
+    $scope.addChannel = function(newChannel){
+      $meteor.call("addChannel", newChannel);
+    };
+
+    $scope.deleteChannel = function(channelId){
+      $meteor.call("deleteChannel", channelId);
+    };
+
+    $scope.channelActive = function(channelId){
       $scope.channelActive = '';
-  		$scope.$meteorSubscribe("channels");
+    };
 
-  		$scope.channels = $meteor.collection(function() {
-  			return Channels.find();
-  		});
+    $scope.toogleLeftMenu = function() {
+      $mdSidenav('left').toggle();
+    };
 
-  		$scope.addChannel = function(newChannel){
-  			$meteor.call("addChannel", newChannel);
-  		};
-
-      $scope.deleteChannel = function(channelId){
-        $meteor.call("deleteChannel", channelId);
-      };
-
-      $scope.channelActive = function(channelId){
-  			$scope.channelActive = '';
-  		};
-
-    }]);
-
-angular.module('cap-meteor').controller("ChannelCtrl", ['$scope', '$meteor', '$stateParams',
-    function($scope, $meteor, $stateParams){
-
-
-      $scope.channelId = $stateParams.channelId;
-
-  		$scope.$meteorSubscribe("channels");
-      $scope.$meteorSubscribe("messages", $scope.channelId);
-      $scope.users = $meteor.collection(Meteor.users, false).subscribe('users');
-
-  		$scope.channels = $meteor.collection(function() {
-  			return Channels.find()
-  		});
-
-  		$scope.messages = $meteor.collection(function() {
-  			return Messages.find()
-  		});
-
-  		$scope.addChannel = function(newChannel){
-  			$meteor.call("addChannel", newChannel);
-  		};
-
-      $scope.deleteChannel = function(channelId){
-  			$meteor.call("deleteChannel", channelId);
-  		};
-
-      $scope.sendMessage = function(newMessage){
-        newMessage.channelId = $scope.channelId;
-  			$meteor.call("sendMessage", newMessage);
-  		};
-
-      $scope.channelActive = function(channelId){
-  			if ($scope.channelId === channelId) {
-          return 'active';
-        } else {
-          return '';
-        }
-  		};
-
-      $scope.username = function(userId){
-  			return Meteor.users.findOne({_id:userId}).username;
-        //return userId;
-  		};
-
-    }]);
-
-angular.module('cap-meteor').controller("SignInOrUpCtrl", ['$scope', '$state', '$meteor',
-    function($scope, $state, $meteor){
-
-      $scope.signIn = function(login, passwd){
-  			$meteor.loginWithPassword(login, passwd).then(function(){
-          console.log('Login success');
-          $scope.username = '';
-          $scope.passwd = '';
-
-          $state.go('channels');
-        }, function(err){
-          console.log('Login error - ', err);
-        });
-  		};
-
-      $scope.signUp = function(username, email, passwd){
-        $meteor.createUser({
-              username: $scope.username,
-              email: $scope.email,
-              password: $scope.passwd
-            }).then(function(){
-              $scope.username = '';
-              $scope.email = '';
-              $scope.passwd = '';
-
-              $state.go('channels');
-              console.log('Signup success');
-          }, function(err){
-            console.log('Login error - ', err);
-          });
-  		};
-
-      $scope.signOut = function(){
-        $meteor.logout().then(function(){
-            console.log('Logout success');
-          }, function(err){
-            console.log('logout error - ', err);
-          });
-        };
-	}]);
-
-  angular.module('cap-meteor').controller("NavBarCtrl", ['$scope', '$state', '$meteor',
-      function($scope, $state, $meteor){
-
-        $scope.signOut = function(){
-          $meteor.logout().then(function(){
-              console.log('Logout success');
-              $state.go('signInOrUp');
-            }, function(err){
-              console.log('logout error - ', err);
-            });
-          };
-  	}]);
-    
+}]);
