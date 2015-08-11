@@ -12,13 +12,13 @@
              <span class="prefix">#</span>
              {{channel.label}}
            </a>
+
        </md-content>
        </md-list-item>
       </md-list>
       <md-divider ></md-divider>
       <p class="disclaimer">This demo is not created by, affiliated with, or supported by Slack Technologies, Inc.</p>
       <md-divider ></md-divider>
-      <md-subheader>Channels creation</md-subheader>
       <form ng-submit="addChannel(newChannel); newChannel='';">
         <md-input-container flex>
           <label>Create a channel</label>
@@ -45,9 +45,15 @@
      </md-toolbar>
 
  		<md-content>
-        <!-- Teal page content  -->
-        <h2>Welcome!</h2>
-        <h3>Choose a channel.</h3>
+
+        <md-card style="background-color:lightgrey">
+
+          <md-card-content>
+            <h2 class="md-title">Welcome!</h2>
+            <p>Please, choose a channel.</p>
+          </md-card-content>
+        </md-card>
+
      </md-content>
 
    </div>
