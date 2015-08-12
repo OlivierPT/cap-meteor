@@ -44,8 +44,9 @@ angular.module("cap-meteor").run(["$rootScope", "$state", function($rootScope, $
 
 }]);
 
-angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$animate', '$mdSidenav', '$meteor',
-  function($scope, $mdToast, $animate, $mdSidenav, $meteor) {
+angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$animate',
+                                        '$mdSidenav', '$meteor', '$state', '$stateParams',
+  function($scope, $mdToast, $animate, $mdSidenav, $meteor, $state, $stateParams) {
 
     $scope.toastPosition = {
       bottom: true,
@@ -60,7 +61,6 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$anim
         .join(' ');
     };
 
-    $scope.channelActive = '';
     $scope.$meteorSubscribe("channels");
 
     $scope.channels = $meteor.collection(function() {
@@ -69,7 +69,7 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$anim
 
     $scope.addChannel = function(newChannel){
       $meteor.call("addChannel", newChannel).then(function(){
-        
+
         $mdToast.show($mdToast.simple()
           .content('Channel '+newChannel.label+' created!')
           .position($scope.getToastPosition())
@@ -84,12 +84,12 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$anim
       $meteor.call("deleteChannel", channelId);
     };
 
-    $scope.channelActive = function(channelId){
-      $scope.channelActive = '';
+    $scope.enterChannel = function(channelId){
+      $state.go('channel', {'channelId':channelId});
     };
 
-    $scope.toogleLeftMenu = function() {
-      $mdSidenav('left').toggle();
+    $scope.channelActive = function(channelId){
+      return ($stateParams.channelId === channelId);
     };
 
 }]);
