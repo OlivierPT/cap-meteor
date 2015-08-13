@@ -92,4 +92,8 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$anim
       return ($stateParams.channelId === channelId);
     };
 
+    $scope.toogleLeftMenu = function() {
+      $mdSidenav('left').toggle();
+    };
+
 }]);

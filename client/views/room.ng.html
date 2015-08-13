@@ -7,14 +7,14 @@
   </md-toolbar>
   <md-list flex>
     <md-list-item class="md-1-line" ng-repeat="channel in channels" ng-click="enterChannel(channel._id)">
+      <md-icon md-svg-icon="communication:ic_messenger_24px" ng-class="{'md-primary': channelActive(channel._id)}"></md-icon>
       <p>
         <span class="prefix">#</span>
         {{channel.label}}
       </p>
-      <md-icon md-svg-icon="communication:ic_messenger_24px"
-          ng-click="doSecondaryAction($event)"
-          aria-label="Open Chat" class="md-secondary md-hue-3"
-          ng-class="{'md-primary': channelActive(channel._id)}">
+      <md-icon md-svg-icon="content:ic_clear_24px"
+          ng-click="deleteChannel(channel._id)"
+          aria-label="Delete channel" class="md-secondary md-hue-3">
       </md-icon>
     </md-list-item>
   </md-list>
