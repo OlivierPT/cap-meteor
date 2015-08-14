@@ -68,20 +68,33 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$anim
     });
 
     $scope.addChannel = function(newChannel){
-      $meteor.call("addChannel", newChannel).then(function(){
-
-        $mdToast.show($mdToast.simple()
-          .content('Channel '+newChannel.label+' created!')
-          .position($scope.getToastPosition())
-          .hideDelay(3000));
-
-          }, function(err){
-              console.log('logout error - ', err);
+      $meteor.call("addChannel", newChannel).then(
+        function(){
+          $mdToast.show($mdToast.simple()
+            .content('Channel '+newChannel.label+' created!')
+            .position($scope.getToastPosition())
+            .hideDelay(3000));
+          },
+          function(err) {
+            console.log('Channel creation error - ', err);
           });
     };
 
     $scope.deleteChannel = function(channelId){
-      $meteor.call("deleteChannel", channelId);
+      $meteor.call("deleteChannel", channelId).then(
+        function() {
+          $mdToast.show($mdToast.simple()
+            .content('Channel '+newChannel.label+' deleted!')
+            .position($scope.getToastPosition())
+            .hideDelay(3000));
+          },
+          function(err) {
+            $mdToast.show($mdToast.simple()
+              .content(err.reason)
+              .position($scope.getToastPosition())
+              .hideDelay(3000));
+            console.log('Channel deletion error - ', err);
+          });
     };
 
     $scope.enterChannel = function(channelId){

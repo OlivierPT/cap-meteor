@@ -3,11 +3,14 @@ angular.module('cap-meteor').controller("ChannelCtrl", ['$scope', '$meteor', '$s
 
       $scope.channelId = $stateParams.channelId;
   	  $scope.$meteorSubscribe("messages", $scope.channelId);
+
       $scope.users = $meteor.collection(Meteor.users, false).subscribe('users');
 
   		$scope.messages = $meteor.collection(function() {
   			return Messages.find()
   		});
+
+      $scope.channel = $meteor.object(Channels, $scope.channelId);
 
       $scope.sendMessage = function(newMessage){
         newMessage.channelId = $scope.channelId;
@@ -16,6 +19,10 @@ angular.module('cap-meteor').controller("ChannelCtrl", ['$scope', '$meteor', '$s
 
       $scope.username = function(userId){
   			return Meteor.users.findOne({_id:userId}).username;
+  		};
+
+      $scope.messageSent = function(message){
+  			return message.state === 'sent';
   		};
 
     }]);
