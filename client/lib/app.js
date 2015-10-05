@@ -19,7 +19,15 @@ var themeIcons = function ($mdIconProvider) {
              "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-image.svg");
 };
 
+// Icon configuration
 angular.module('cap-meteor').config(themeIcons);
+
+// theme configuration
+angular.module('cap-meteor').config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .primaryPalette('indigo')
+    .accentPalette('pink');
+});
 
 // Module configuration for Cordova compatibility
 function onReady() {

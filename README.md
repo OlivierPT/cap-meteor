@@ -118,4 +118,13 @@ Some usefull package for Development stage :
 
 ### Deploying on Mobile platform
 
+If Android sdk is not installed yet
+> meteor install-sdk android
+
+Adding the platform to the project
+> meteor add-platform android
+
+Run the project on the Mobile
+> meteor run android-device
+
 ### Deploying with Docker
