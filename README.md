@@ -21,7 +21,8 @@ And then start the app :
 
 That's it!
 
-## The application
+
+## The Demo application
 
 Cap-meteor is a tchat application (inspired from slack) that allow to show the main capacity of Meteor platform.
 It is based on AngularJS and Material-Design for the UI.
@@ -52,13 +53,16 @@ Meteor uses directory structure convention to organise the code :
 * "private" directory : Server and private static content.
 
 Loading order :
-* Directories in the alphanumeric order
-* In one directory...???
+* Alphabetic order
+* First in the directories, then the files
+
+That's why, in the client folder, there are :
+* A 'lib' directory with app.js to be the first js file to load. This is the one declaring the app module.
 
 ### UI Layer
 
 Angular Integration packages :
-* urigo:angular
+* angular (main stream angular integration since Meteor 1.2)
 * angularui:angular-ui-router
 
 Angular-Material integration packages :
@@ -113,8 +117,14 @@ Some usefull package for Development stage :
 
 ### Monitoring
 
+Kadira.io is a great application to monitor a Meteor application.
+Here, Kadira is only activated for production environment. To use the settings and activate Kadira :
+
+> meteor --settings config/production/settings.json
 
 ### Deploying on Meteor.com
+
+
 
 ### Deploying on Mobile platform
 
@@ -126,5 +136,7 @@ Adding the platform to the project
 
 Run the project on the Mobile
 > meteor run android-device
+
+
 
 ### Deploying with Docker
