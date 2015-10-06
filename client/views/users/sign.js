@@ -1,27 +1,26 @@
-angular.module("cap-meteor").controller("SignCtrl", ['$meteor', '$state',
-  function($meteor, $state){
-    var vm = this;
+angular.module("cap-meteor").controller("SignCtrl", ['$scope', '$meteor', '$state',
+  function($scope, $meteor, $state){
 
-    vm.credentials = {
+    $scope.credentials = {
       email: '',
       username: '',
       password: ''
     };
 
-    vm.error = '';
+    $scope.error = '';
 
-    vm.login = function (){
-      $meteor.loginWithPassword(vm.credentials.username, vm.credentials.password).then(
+    $scope.login = function (){
+      $meteor.loginWithPassword($scope.credentials.username, $scope.credentials.password).then(
         function(){
           $state.go('channels');
         },
         function(err){
-          vm.error = 'Login error - ' + err;
+          $scope.error = 'Login error - ' + err;
         }
       );
     };
 
-    vm.loginGihub = function (){
+    $scope.loginGihub = function (){
       $meteor.loginWithGithub({
         requestPermissions: ['user', 'public_repo']
       }).then(
@@ -29,18 +28,18 @@ angular.module("cap-meteor").controller("SignCtrl", ['$meteor', '$state',
           $state.go('channels');
         },
         function(err){
-          vm.error = 'Login error - ' + err;
+          $scope.error = 'Login error - ' + err;
         }
       );
     };
 
-    vm.register = function (){
-        $meteor.createUser(vm.credentials).then(
+    $scope.register = function (){
+        $meteor.createUser($scope.credentials).then(
       function(){
         $state.go('channels');
       },
       function(err){
-        vm.error = 'Registration error - ' + err;
+        $scope.error = 'Registration error - ' + err;
       }
     );
     };

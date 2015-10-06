@@ -6,9 +6,9 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
     $stateProvider
       .state('sign', {
         url: '/sign',
-        templateUrl: 'client/views/users/sign.ng.html',
-        controller: 'SignCtrl',
-        controllerAs: 'sc'
+        views: {
+          "content": { templateUrl: 'client/views/users/sign.ng.html' }
+        }
       })
       .state('logout', {
         url: '/logout',
@@ -23,7 +23,11 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
        }
       }).state('channels', {
         url: '/channels',
-        templateUrl: 'client/views/index.ng.html',
+        views: {
+          "left-toolbar": { templateUrl: 'client/views/leftmenu/leftMenu.ng.html' },
+          "main-toolbar": { templateUrl: 'client/views/mainmenu/mainMenu.ng.html' },
+          "content": { templateUrl: 'client/views/home/home.ng.html' }
+        },
         resolve: {
           "currentUser": ["$meteor", function($meteor){
             return $meteor.requireUser();
@@ -32,8 +36,12 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
       })
       .state('channel', {
         url: '/channels/:channelId',
-        templateUrl: 'client/views/room.ng.html',
-        controller: 'AppCtrl',
+        views: {
+          "left-toolbar": { templateUrl: 'client/views/leftmenu/leftMenu.ng.html' },
+          "main-toolbar": { templateUrl: 'client/views/mainmenu/mainMenu.ng.html' },
+          "content": { templateUrl: 'client/views/room/room.ng.html' }
+        },
+        controller: 'MessagesCtrl',
         resolve: {
           "currentUser": ["$meteor", function($meteor){
             return $meteor.requireUser();

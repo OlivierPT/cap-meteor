@@ -1,0 +1,25 @@
+<md-toolbar md-scroll-shrink layout="row" layout-align="start center" layout-padding class="md-medium main-toolbar">
+  <div class="md-toolbar-tools">
+    <md-button ng-click="toogleLeftMenu('left')" hide-gt-md aria-label="Menu">
+      <md-icon md-svg-icon="action:ic_view_headline_24px"></md-icon>
+    </md-button>
+    <h2>
+      <a href="/channels">Cap Meteor</a>
+    </h2>
+    <span flex></span>
+    <md-menu ng-show="$root.currentUser">
+      <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+        <md-icon md-menu-origin md-svg-icon="action:ic_account_circle_24px"></md-icon>
+        {{ $root.currentUser.username }}
+      </md-button>
+      <md-menu-content>
+        <md-menu-item>
+          <md-button ng-href="/logout">
+            <md-icon md-svg-icon="action:ic_exit_to_app_24px" md-menu-align-target></md-icon>
+            Logout
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
+</md-toolbar>

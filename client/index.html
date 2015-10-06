@@ -1,3 +1,13 @@
-<body layout="row" ng-controller="AppCtrl">
-	<ui-view layout="row" layout-fill layout-padding></ui-view>
+<body ng-controller="AppCtrl">
+	<div layout="row" layout-fill>
+		<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2"
+			md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"  ng-show="$root.currentUser">
+			<ui-view name="left-toolbar"></ui-view>
+		</md-sidenav>
+
+			<div layout="column" class="relative" layout-fill role="main">
+				<ui-view name="main-toolbar"></ui-view>
+				<ui-view name="content"></ui-view>
+			</div>
+		</div>
 </body>

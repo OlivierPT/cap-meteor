@@ -1,20 +1,19 @@
-angular.module("cap-meteor").controller("ResetCtrl", ['$meteor', '$state',
-  function($meteor, $state){
-      var vm = this;
+angular.module("cap-meteor").controller("ResetCtrl", ['$meteor', '$scope', '$state',
+  function($meteor, $scope, $state){
 
-      vm.credentials = {
+      $scope.credentials = {
           email: ''
       };
 
-      vm.error = '';
+      $scope.error = '';
 
-      vm.reset = function (){
-          $meteor.forgotPassword(vm.credentials.email).then(
+      $scope.reset = function (){
+          $meteor.forgotPassword($scope.credentials.email).then(
             function(){
               $state.go('channels');
             },
             function(err){
-              vm.error = 'Error sending forgot password email - ' + err;
+              $scope.error = 'Error sending forgot password email - ' + err;
             }
           );
       };

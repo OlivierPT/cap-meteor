@@ -1,4 +1,4 @@
-angular.module('cap-meteor').controller("ChannelCtrl", ['$scope', '$meteor', '$stateParams',
+angular.module('cap-meteor').controller("MessagesCtrl", ['$scope', '$meteor', '$stateParams',
     function($scope, $meteor, $stateParams){
 
       $scope.channelId = $stateParams.channelId;
