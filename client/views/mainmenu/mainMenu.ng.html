@@ -8,18 +8,26 @@
     </h2>
     <span flex></span>
     <md-menu ng-show="$root.currentUser">
-      <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+      <md-button aria-label="Open phone interactions menu" ng-click="$mdOpenMenu($event)">
         <md-icon md-menu-origin md-svg-icon="action:ic_account_circle_24px"></md-icon>
         {{ $root.currentUser.username }}
       </md-button>
       <md-menu-content>
         <md-menu-item>
           <md-button ng-href="/logout">
-            <md-icon md-svg-icon="action:ic_exit_to_app_24px" md-menu-align-target></md-icon>
+            <md-icon md-menu-align-target md-svg-icon="action:ic_exit_to_app_24px"></md-icon>
             Logout
           </md-button>
         </md-menu-item>
       </md-menu-content>
     </md-menu>
+    <!--
+    <span ng-show="{{status.connected}}">
+      <md-icon md-menu-align-target md-svg-icon="file:ic_cloud_24px"></md-icon>
+    </span>
+    <span ng-show="{{!status.connected}}">
+      <md-icon md-menu-align-target md-svg-icon="file:ic_cloud_off_24px"></md-icon>
+    </span>
+    -->
   </div>
 </md-toolbar>

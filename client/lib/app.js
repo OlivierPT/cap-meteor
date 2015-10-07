@@ -4,19 +4,21 @@ angular.module('cap-meteor',['angular-meteor', 'ui.router', 'ngMaterial']);
 var themeIcons = function ($mdIconProvider) {
   $mdIconProvider
     .iconSet("social",
-             "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-social.svg")
+             "/material-design-icons/sprites/svg-sprite/svg-sprite-social.svg")
     .iconSet("action",
-             "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-action.svg")
+             "/material-design-icons/sprites/svg-sprite/svg-sprite-action.svg")
     .iconSet("communication",
-             "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-communication.svg")
+             "/material-design-icons/sprites/svg-sprite/svg-sprite-communication.svg")
     .iconSet("content",
-             "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-content.svg")
+             "/material-design-icons/sprites/svg-sprite/svg-sprite-content.svg")
     .iconSet("toggle",
-             "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-toggle.svg")
+             "/material-design-icons/sprites/svg-sprite/svg-sprite-toggle.svg")
     .iconSet("navigation",
-             "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-navigation.svg")
+             "/material-design-icons/sprites/svg-sprite/svg-sprite-navigation.svg")
     .iconSet("image",
-             "/packages/planettraining_material-design-icons/bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-image.svg");
+             "/material-design-icons/sprites/svg-sprite/svg-sprite-image.svg")
+     .iconSet("file",
+              "/material-design-icons/sprites/svg-sprite/svg-sprite-file.svg");
 };
 
 // Icon configuration
@@ -68,6 +70,8 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$anim
         .filter(function(pos) { return $scope.toastPosition[pos]; })
         .join(' ');
     };
+
+    $scope.status = Meteor.status();
 
     $scope.$meteorSubscribe("channels");
 
