@@ -33,7 +33,7 @@ angular.module('cap-meteor').config(function($mdThemingProvider) {
 
 // Module configuration for Cordova compatibility
 function onReady() {
-  angular.bootstrap(document, ['cap-meteor']);
+  angular.bootstrap(document, ['cap-meteor'], [{strictDi:true}]);
 }
 
 if (Meteor.isCordova) {
