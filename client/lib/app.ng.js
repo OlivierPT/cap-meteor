@@ -89,6 +89,10 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$anim
           },
           function(err) {
             console.log('Channel creation error - ', err);
+            $mdToast.show($mdToast.simple()
+              .content('Error while Channel creation.')
+              .position($scope.getToastPosition())
+              .hideDelay(3000));
           });
     };
 
@@ -96,7 +100,7 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$anim
       $meteor.call("deleteChannel", channelId).then(
         function() {
           $mdToast.show($mdToast.simple()
-            .content('Channel '+newChannel.label+' deleted!')
+            .content('Channel deleted!')
             .position($scope.getToastPosition())
             .hideDelay(3000));
           },
@@ -105,7 +109,7 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$anim
               .content(err.reason)
               .position($scope.getToastPosition())
               .hideDelay(3000));
-            console.log('Channel deletion error - ', err);
+            console.log('Error while Channel deletion. Error - ', err);
           });
     };
 
