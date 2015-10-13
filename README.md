@@ -124,7 +124,8 @@ Here, Kadira is only activated for production environment. To use the settings a
 
 ### Deploying on Meteor.com
 
-
+Activate Kadira settings
+> meteor deploy --settings config/production/settings.json  cap-meteor.meteor.com
 
 ### Deploying on Mobile platform
 
@@ -137,6 +138,17 @@ Adding the platform to the project
 Run the project on the Mobile
 > meteor run android-device
 
+Or
+> meteor run android-device --mobile-server cap-meteor.meteor.com
 
 
 ### Deploying with Docker
+
+Running MongoDB server
+> docker run --name cap-mongo -p 27017:27017 -d mongo
+
+Running the Cap-meteor application with Meteor and Docker (using bundle)
+> docker run -d  -e ROOT_URL=http://localhost --link cap-mongo:mongo -e MONGO_URL=mongodb://cap-mongo:27017/cap-meteor -v /Users/olivierpillaudtirard/workspaces/cap-meteor/build:/bundle -p 8080:80  meteorhacks/meteord:base
+
+Running the Cap-meteor application with Meteor and Docker (using cap-meteor image)
+> docker run -d  -e ROOT_URL=http://localhost --link cap-mongo:mongo -e MONGO_URL=mongodb://cap-mongo:27017/cap-meteor -p 8080:80  olivierpt/cap-meteor
