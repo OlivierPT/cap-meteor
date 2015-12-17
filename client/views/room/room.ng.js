@@ -2,27 +2,42 @@ angular.module('cap-meteor').controller("MessagesCtrl", ['$scope', '$meteor', '$
     function($scope, $meteor, $stateParams){
 
       $scope.channelId = $stateParams.channelId;
-  	  $scope.$meteorSubscribe("messages", $scope.channelId);
 
-      $scope.users = $meteor.collection(Meteor.users, false).subscribe('users');
+      $scope.subscribe("messages", () => {
+        return [
+          $scope.channelId
+        ]
+      });
 
-  		$scope.messages = $meteor.collection(function() {
-  			return Messages.find()
-  		});
+      $scope.subscribe("usernames");
 
-      $scope.channel = $meteor.object(Channels, $scope.channelId);
+      $scope.helpers({
+        messages: () => {
+          return Messages.find()
+        },
+
+        channel: () => {
+          return Channels.findOne($scope.channelId)
+        },
+
+        usernames: () => {
+          //return Meteor.users.findOne({_id: Meteor.userId()}).username;
+          return Meteor.users.find({});
+        }
+      });
+
+      $scope.username = (userId) => {
+        return Meteor.users.findOne({_id: userId}).username;
+      }
 
       $scope.sendMessage = function(newMessage){
         newMessage.channelId = $scope.channelId;
-  			$meteor.call("sendMessage", newMessage);
-  		};
-
-      $scope.username = function(userId){
-  			return Meteor.users.findOne({_id:userId}).username;
+  			Meteor.call("sendMessage", newMessage);
   		};
 
       $scope.messageSent = function(message){
   			return message.state === 'sent';
   		};
 
-    }]);
+    }
+]);

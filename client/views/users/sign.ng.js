@@ -9,40 +9,36 @@ angular.module("cap-meteor").controller("SignCtrl", ['$scope', '$meteor', '$stat
 
     $scope.error = '';
 
-    $scope.login = function (){
-      $meteor.loginWithPassword($scope.credentials.username, $scope.credentials.password).then(
-        function(){
+    $scope.login = function() {
+      Meteor.loginWithPassword(
+        $scope.credentials.username,
+        $scope.credentials.password, function(error, result) {
+          if (error) {
+            $scope.error = 'Login error - ' + err;
+          } else {
+            $state.go('channels');
+          }
+        })
+    };
+
+    $scope.loginGihub = function() {
+      Meteor.loginWithGithub({requestPermissions: ['user', 'public_repo']}, function(error, result){
+        if (error) {
+            $scope.error = 'Login error - ' + err;
+        } else {
           $state.go('channels');
-        },
-        function(err){
-          $scope.error = 'Login error - ' + err;
         }
-      );
+      })
     };
 
-    $scope.loginGihub = function (){
-      $meteor.loginWithGithub({
-        requestPermissions: ['user', 'public_repo']
-      }).then(
-        function(){
-          $state.go('channels');
-        },
-        function(err){
-          $scope.error = 'Login error - ' + err;
-        }
-      );
+    $scope.register = function() {
+        Meteor.createUser($scope.credentials, function(error, result){
+          if (error) {
+            $scope.error = 'Registration error - ' + err;
+          } else {
+            $state.go('channels');
+          }
+        })
     };
-
-    $scope.register = function (){
-        $meteor.createUser($scope.credentials).then(
-      function(){
-        $state.go('channels');
-      },
-      function(err){
-        $scope.error = 'Registration error - ' + err;
-      }
-    );
-    };
-
   }
 ]);

@@ -5,8 +5,8 @@
   </div>
 </md-toolbar>
 <md-list flex>
-  <md-list-item class="md-1-line" ng-repeat="channel in channels" ng-click="enterChannel(channel._id)">
-    <md-icon md-svg-icon="communication:ic_messenger_24px" ng-class="{'md-primary': channelActive(channel._id)}"></md-icon>
+  <md-list-item class="md-1-line" ng-repeat="channel in leftMenu.channels" ng-click="leftMenu.enterChannel(channel._id)">
+    <md-icon md-svg-icon="communication:ic_messenger_24px" ng-class="{'md-primary': leftMenu.channelActive(channel._id)}"></md-icon>
     <p>
       <span class="prefix">#</span>
       {{channel.label}}

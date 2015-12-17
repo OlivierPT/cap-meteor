@@ -71,54 +71,38 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$anim
         .join(' ');
     };
 
-    $scope.status = Meteor.status();
-
-    $scope.$meteorSubscribe("channels");
-
-    $scope.channels = $meteor.collection(function() {
-      return Channels.find();
-    });
-
     $scope.addChannel = function(newChannel){
-      $meteor.call("addChannel", newChannel).then(
-        function(){
+      Meteor.call("addChannel", newChannel, function(error, result) {
+        if (error) {
+          console.log('Channel creation error - ', err);
+          $mdToast.show($mdToast.simple()
+            .content('Error while Channel creation.')
+            .position($scope.getToastPosition())
+            .hideDelay(3000));
+        } else {
           $mdToast.show($mdToast.simple()
             .content('Channel '+newChannel.label+' created!')
             .position($scope.getToastPosition())
             .hideDelay(3000));
-          },
-          function(err) {
-            console.log('Channel creation error - ', err);
-            $mdToast.show($mdToast.simple()
-              .content('Error while Channel creation.')
-              .position($scope.getToastPosition())
-              .hideDelay(3000));
-          });
+        }
+      })
     };
 
     $scope.deleteChannel = function(channelId){
-      $meteor.call("deleteChannel", channelId).then(
-        function() {
+      Meteor.call("deleteChannel", channelId, function(error, result) {
+        if (error) {
+          $mdToast.show($mdToast.simple()
+            .content(err.reason)
+            .position($scope.getToastPosition())
+            .hideDelay(3000));
+          console.log('Error while Channel deletion. Error - ', err);
+        } else {
           $mdToast.show($mdToast.simple()
             .content('Channel deleted!')
             .position($scope.getToastPosition())
             .hideDelay(3000));
-          },
-          function(err) {
-            $mdToast.show($mdToast.simple()
-              .content(err.reason)
-              .position($scope.getToastPosition())
-              .hideDelay(3000));
-            console.log('Error while Channel deletion. Error - ', err);
-          });
-    };
-
-    $scope.enterChannel = function(channelId){
-      $state.go('channel', {'channelId':channelId});
-    };
-
-    $scope.channelActive = function(channelId){
-      return ($stateParams.channelId === channelId);
+          }
+        })
     };
 
     $scope.toogleLeftMenu = function() {

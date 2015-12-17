@@ -24,7 +24,6 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
       }).state('channels', {
         url: '/channels',
         views: {
-          "left-toolbar": { templateUrl: 'client/views/leftmenu/leftMenu.ng.html' },
           "main-toolbar": { templateUrl: 'client/views/mainmenu/mainMenu.ng.html' },
           "content": { templateUrl: 'client/views/home/home.ng.html' }
         },
@@ -37,7 +36,6 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
       .state('channel', {
         url: '/channels/:channelId',
         views: {
-          "left-toolbar": { templateUrl: 'client/views/leftmenu/leftMenu.ng.html' },
           "main-toolbar": { templateUrl: 'client/views/mainmenu/mainMenu.ng.html' },
           "content": { templateUrl: 'client/views/room/room.ng.html' }
         },
