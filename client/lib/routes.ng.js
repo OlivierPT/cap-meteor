@@ -24,6 +24,7 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
       }).state('channels', {
         url: '/channels',
         views: {
+          "left-toolbar": { template: '<left-menu></left-menu>' },
           "main-toolbar": { templateUrl: 'client/views/mainmenu/mainMenu.ng.html' },
           "content": { templateUrl: 'client/views/home/home.ng.html' }
         },
@@ -36,10 +37,10 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
       .state('channel', {
         url: '/channels/:channelId',
         views: {
+          "left-toolbar": { template: '<left-menu></left-menu>' },
           "main-toolbar": { templateUrl: 'client/views/mainmenu/mainMenu.ng.html' },
-          "content": { templateUrl: 'client/views/room/room.ng.html' }
+          "content": { template: '<room></room>' }
         },
-        controller: 'MessagesCtrl',
         resolve: {
           "currentUser": ["$meteor", function($meteor){
             return $meteor.requireUser();

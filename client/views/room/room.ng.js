@@ -1,43 +1,50 @@
-angular.module('cap-meteor').controller("MessagesCtrl", ['$scope', '$meteor', '$stateParams',
-    function($scope, $meteor, $stateParams){
+angular.module('cap-meteor').directive('room', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'client/views/room/room.ng.html',
+    controllerAs: 'roomCtrl',
+    controller: function($scope, $reactive, $stateParams, $state) {
+      $reactive(this).attach($scope);
 
-      $scope.channelId = $stateParams.channelId;
+      this.channelId = $stateParams.channelId;
+      this.newMessage = {};
 
-      $scope.subscribe("messages", () => {
+      this.subscribe("messages", () => {
         return [
-          $scope.channelId
+          this.channelId
         ]
       });
 
-      $scope.subscribe("usernames");
+      this.subscribe("usernames");
 
-      $scope.helpers({
+      this.helpers({
         messages: () => {
-          return Messages.find()
+          return Messages.find({}, {sort: {timestamp:1}})
         },
 
         channel: () => {
-          return Channels.findOne($scope.channelId)
+          return Channels.findOne(this.channelId)
         },
 
         usernames: () => {
-          //return Meteor.users.findOne({_id: Meteor.userId()}).username;
           return Meteor.users.find({});
         }
       });
 
-      $scope.username = (userId) => {
+      this.username = (userId) => {
         return Meteor.users.findOne({_id: userId}).username;
       }
 
-      $scope.sendMessage = function(newMessage){
-        newMessage.channelId = $scope.channelId;
-  			Meteor.call("sendMessage", newMessage);
+      this.sendMessage = () => {
+        this.newMessage.channelId = this.channelId;
+        Meteor.call("sendMessage", this.newMessage);
+        this.newMessage = {};
   		};
 
-      $scope.messageSent = function(message){
+      this.messageSent = (message) => {
   			return message.state === 'sent';
   		};
 
     }
-]);
+  }
+});

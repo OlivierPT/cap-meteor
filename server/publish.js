@@ -4,7 +4,8 @@ Meteor.publish('channels', function () {
 });
 
 Meteor.publish('messages', function (channelId) {
-    return Messages.find({channelId:channelId}, {sort: {timestamp:1}, limit:10});
+    var limit = 5;
+    return Messages.find({channelId:channelId}, {sort: {timestamp:-1}, limit:limit});
 });
 
 Meteor.publish('usernames', function () {

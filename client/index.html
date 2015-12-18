@@ -2,7 +2,7 @@
 	<div layout="row" layout-fill>
 		<md-sidenav layout="column" layout-fill class="md-sidenav-left md-whiteframe-z2"
 			md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"  ng-show="$root.currentUser">
-			<left-menu></left-menu>
+			<ui-view name="left-toolbar"></ui-view>
 		</md-sidenav>
 
 			<div layout="column" class="relative" layout-fill role="main">
