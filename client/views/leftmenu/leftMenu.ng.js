@@ -11,10 +11,6 @@ angular.module('cap-meteor').directive('leftMenu', function() {
         this.helpers({
           channels() {
             return Channels.find();
-          },
-
-          status() {
-            Meteor.status();
           }
         });
 

@@ -1,44 +1,51 @@
-angular.module("cap-meteor").controller("SignCtrl", ['$scope', '$meteor', '$state',
-  function($scope, $meteor, $state){
+angular.module('cap-meteor').directive('signInUp', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'client/views/users/sign.ng.html',
+      controllerAs: 'signInUpCtrl',
+      controller: function($scope, $reactive, $state) {
+        $reactive(this).attach($scope);
 
-    $scope.credentials = {
-      email: '',
-      username: '',
-      password: ''
-    };
+        this.credentials = {
+          email: '',
+          username: '',
+          password: ''
+        };
 
-    $scope.error = '';
+        this.error = '';
 
-    $scope.login = function() {
-      Meteor.loginWithPassword(
-        $scope.credentials.username,
-        $scope.credentials.password, function(error, result) {
-          if (error) {
-            $scope.error = 'Login error - ' + err;
-          } else {
-            $state.go('channels');
-          }
-        })
-    };
+        this.login = function() {
+          Meteor.loginWithPassword(
+            this.credentials.username,
+            this.credentials.password, function(error, result) {
+              if (error) {
+                this.error = 'Login error - ' + err;
+              } else {
+                $state.go('channels');
+              }
+            })
+        };
 
-    $scope.loginGihub = function() {
-      Meteor.loginWithGithub({requestPermissions: ['user', 'public_repo']}, function(error, result){
-        if (error) {
-            $scope.error = 'Login error - ' + err;
-        } else {
-          $state.go('channels');
-        }
-      })
-    };
+        this.loginGihub = function() {
+          Meteor.loginWithGithub({requestPermissions: ['user', 'public_repo']}, function(error, result){
+            if (error) {
+                this.error = 'Login error - ' + err;
+            } else {
+              $state.go('channels');
+            }
+          })
+        };
 
-    $scope.register = function() {
-        Meteor.createUser($scope.credentials, function(error, result){
-          if (error) {
-            $scope.error = 'Registration error - ' + err;
-          } else {
-            $state.go('channels');
-          }
-        })
-    };
-  }
-]);
+        this.register = function() {
+            Meteor.createUser(this.credentials, function(error, result){
+              if (error) {
+                this.error = 'Registration error - ' + err;
+              } else {
+                $state.go('channels');
+              }
+            })
+        };
+
+      }
+    }
+  });

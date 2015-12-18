@@ -7,7 +7,7 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
       .state('sign', {
         url: '/sign',
         views: {
-          "content": { templateUrl: 'client/views/users/sign.ng.html' }
+          "content": { template: '<sign-in-up></sign-in-up>' }
         }
       })
       .state('logout', {
@@ -25,7 +25,7 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
         url: '/channels',
         views: {
           "left-toolbar": { template: '<left-menu></left-menu>' },
-          "main-toolbar": { templateUrl: 'client/views/mainmenu/mainMenu.ng.html' },
+          "main-toolbar": { template: '<main-menu></main-menu>' },
           "content": { templateUrl: 'client/views/home/home.ng.html' }
         },
         resolve: {
@@ -38,7 +38,7 @@ angular.module('cap-meteor').config(['$urlRouterProvider', '$stateProvider', '$l
         url: '/channels/:channelId',
         views: {
           "left-toolbar": { template: '<left-menu></left-menu>' },
-          "main-toolbar": { templateUrl: 'client/views/mainmenu/mainMenu.ng.html' },
+          "main-toolbar": { template: '<main-menu></main-menu>' },
           "content": { template: '<room></room>' }
         },
         resolve: {
