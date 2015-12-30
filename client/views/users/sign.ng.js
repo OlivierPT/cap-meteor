@@ -37,7 +37,7 @@ angular.module('cap-meteor').directive('signInUp', function() {
         };
 
         this.register = function() {
-            Meteor.createUser(this.credentials, function(error, result){
+            Accounts.createUser(this.credentials, function(error, result){
               if (error) {
                 this.error = 'Registration error - ' + err;
               } else {
