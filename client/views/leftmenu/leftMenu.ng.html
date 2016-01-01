@@ -12,13 +12,13 @@
       {{channel.label}}
     </p>
     <md-icon md-svg-icon="content:ic_clear_24px"
-    ng-click="deleteChannel(channel._id)"
+    ng-click="leftMenu.deleteChannel(channel._id)"
     aria-label="Delete channel" class="md-secondary md-hue-3">
   </md-icon>
 </md-list-item>
 </md-list>
 <md-divider></md-divider>
-<form ng-submit="addChannel(newChannel); newChannel='';">
+<form ng-submit="leftMenu.addChannel(newChannel); newChannel='';">
   <md-input-container flex>
     <label>Create a channel</label>
     <input ng-model="newChannel.label">

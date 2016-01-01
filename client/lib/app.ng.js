@@ -71,39 +71,15 @@ angular.module("cap-meteor").controller('AppCtrl', ['$scope', '$mdToast', '$anim
         .join(' ');
     };
 
-    $scope.addChannel = function(newChannel){
-      Meteor.call("addChannel", newChannel, function(error, result) {
-        if (error) {
-          console.log('Channel creation error - ', err);
-          $mdToast.show($mdToast.simple()
-            .content('Error while Channel creation.')
-            .position($scope.getToastPosition())
-            .hideDelay(3000));
-        } else {
-          $mdToast.show($mdToast.simple()
-            .content('Channel '+newChannel.label+' created!')
-            .position($scope.getToastPosition())
-            .hideDelay(3000));
+    $scope.$on("notification.rised",
+        function(event, message) {
+            console.log( "AppCtr - Notification event %s.");
+            $mdToast.show($mdToast.simple()
+              .content(message)
+              .position($scope.getToastPosition())
+              .hideDelay(3000));
         }
-      })
-    };
-
-    $scope.deleteChannel = function(channelId){
-      Meteor.call("deleteChannel", channelId, function(error, result) {
-        if (error) {
-          $mdToast.show($mdToast.simple()
-            .content(err.reason)
-            .position($scope.getToastPosition())
-            .hideDelay(3000));
-          console.log('Error while Channel deletion. Error - ', err);
-        } else {
-          $mdToast.show($mdToast.simple()
-            .content('Channel deleted!')
-            .position($scope.getToastPosition())
-            .hideDelay(3000));
-          }
-        })
-    };
+    );
 
     $scope.toogleLeftMenu = function() {
       $mdSidenav('left').toggle();
