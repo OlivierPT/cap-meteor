@@ -19,8 +19,10 @@
 </md-list>
 <md-divider></md-divider>
 <form ng-submit="leftMenu.addChannel(newChannel); newChannel='';">
-  <md-input-container flex>
-    <label>Create a channel</label>
-    <input ng-model="newChannel.label">
-  </md-input-container>
+  <div layout layout-sm="row">
+    <md-input-container flex>
+      <label>Create a channel</label>
+      <input ng-model="newChannel.label">
+    </md-input-container>
+  </div>
 </form>
