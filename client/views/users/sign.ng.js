@@ -19,7 +19,7 @@ angular.module('cap-meteor').directive('signInUp', function() {
             this.credentials.username,
             this.credentials.password, function(error, result) {
               if (error) {
-                this.error = 'Login error - ' + err;
+                this.error = 'Login error - ' + error;
               } else {
                 $state.go('channels');
               }
